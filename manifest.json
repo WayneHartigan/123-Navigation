@@ -1,0 +1,28 @@
+{
+  "name": "ABC Nav",
+  "version": "1.0",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Speech Recognition",
+    "default_icon": {
+      "19": "images/logo.png",
+      "38": "images/logo.png"
+    }
+  },
+  "permissions": [
+          "tabs",
+          "storage",
+          "activeTab"
+        ]
+}
