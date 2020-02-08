@@ -10,7 +10,7 @@ function sendMessagetoContext (msg){
 
     })
   })
-}
+};
 
 document.addEventListener('DOMContentLoaded', function() {
   function getSpeech (){
@@ -68,11 +68,11 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 chrome.runtime.onInstalled.addListener(function (object) {
-    chrome.tabs.create({url: "chrome-extension://fdbafhacfnhmcckdmepacejfkieiocpb/index.html"}, function (tab) {
+    chrome.tabs.create({url: "chrome-extension://dmbdalginlkikpgpdjihliecefainbab/index.html"}, function (tab) {
       window.onload = function permission(){
         navigator.mediaDevices.getUserMedia({ audio: true, video: false })
         .then((mediaStream) => {
-        //in promise will be triggered user permission request
+        //in promise will be triggered user permission requests
         })
         .catch((error) => {
           //manage error

@@ -12,8 +12,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
     //retireve and loop through each selected attribute
     var pageAtts = document.querySelectorAll('input,img,button,a');
-
+    var navValueList = [];
     for (att of pageAtts){
+
 
       //retrieving details of each selected attribute
       var distance = att.getBoundingClientRect();
@@ -27,12 +28,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       var style = "background-color:blue; border-radius:3px; height:22px; width:22px; font-style:bold; font-size:15px; z-index:1111111111115656; color:white; position: absolute; top:"+newTop+"px; left:"+newLeft+"px;";
       navIcon.setAttribute("style", style);
 
-      //random string and assigning it to nav icon
-      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      var navIconVal = ""
-      for (var i = 0; i < 2; i++){
-        navIconVal += characters.charAt(Math.floor(Math.random() * characters.length));
+      if (navValueList.length >= 26){
+          var navIconVal = generateRandomString(navValueList, 2);
       }
+      else{
+        var navIconVal = generateRandomString(navValueList, 1);
+      }
+      navValueList.push(navIconVal)
+
+      console.log(navIconVal)
+
       navIcon.innerHTML = navIconVal;
 
       //injecting each span into created div
@@ -56,6 +61,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     sendResponse({result: "Scrolled Up"});
   }
 });
+
+function generateRandomString(navValueList, length){
+  //random string and assigning it to nav icon
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var navIconVal = ""
+  for (var i = 0; i < length; i++){
+    navIconVal += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  if (navValueList.includes(navIconVal)){
+    return generateRandomString(navValueList, length);
+  }
+  else{
+    return navIconVal;
+  }
+}
 
 function removeDom(){
   try{
