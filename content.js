@@ -21,8 +21,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
     var navValueList = [];
     for (att of pageAtts){
-
-      if (isElementInViewport(att)){
+      console.log(isElementInViewport(att));
+      console.log(checkIfClickable(att));
+      if (isElementInViewport(att) && checkIfClickable(att)){
         //retrieving details of each selected attribute
         var distance = att.getBoundingClientRect();
         var newTop = distance.top;
@@ -90,7 +91,13 @@ function checkIfClickable(pageAtt){
   //   return true;
   // }
 
-  return true;
+  // return (pageAtt.hasAttribute('onclick'));
+  if (pageAtt.offsetWidth > 0 && pageAtt.offsetHeight > 0){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 function generateRandomString(navValueList, length){
