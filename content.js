@@ -12,36 +12,45 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
     //retireve and loop through each selected attribute
     var pageAtts = document.querySelectorAll('input,img,button,a');
+    //
+    // for (atts of allPageAtts){
+    //   if $(atts).visible(true){
+    //     var pageAtt.push(atts)
+    //   }
+    // }
+
     var navValueList = [];
     for (att of pageAtts){
 
+      if (isElementInViewport(att)){
+        //retrieving details of each selected attribute
+        var distance = att.getBoundingClientRect();
+        var newTop = distance.top;
+        var newLeft = distance.left;
 
-      //retrieving details of each selected attribute
-      var distance = att.getBoundingClientRect();
-      var newTop = distance.top;
-      var newLeft = distance.left;
+        // creating new span (navigating icons)
+        var navIcon = document.createElement('span');
+        //applying style
+        navIcon.setAttribute("class", "navIcon")
+        var style = "background-color:blue; border-radius:3px; height:22px; width:22px; font-style:bold; font-size:15px; z-index:1111111111115656; color:white; position: absolute; top:"+newTop+"px; left:"+newLeft+"px;";
+        navIcon.setAttribute("style", style);
 
-      // creating new span (navigating icons)
-      var navIcon = document.createElement('span');
-      //applying style
-      navIcon.setAttribute("class", "navIcon")
-      var style = "background-color:blue; border-radius:3px; height:22px; width:22px; font-style:bold; font-size:15px; z-index:1111111111115656; color:white; position: absolute; top:"+newTop+"px; left:"+newLeft+"px;";
-      navIcon.setAttribute("style", style);
+        if (navValueList.length >= 26){
+            var navIconVal = generateRandomString(navValueList, 2);
+        }
+        else{
+          var navIconVal = generateRandomString(navValueList, 1);
+        }
+        navValueList.push(navIconVal)
 
-      if (navValueList.length >= 26){
-          var navIconVal = generateRandomString(navValueList, 2);
+        navIcon.innerHTML = navIconVal;
+
+        //injecting each span into created div
+        newDiv.appendChild(navIcon);
       }
       else{
-        var navIconVal = generateRandomString(navValueList, 1);
+        //pass
       }
-      navValueList.push(navIconVal)
-
-      console.log(navIconVal)
-
-      navIcon.innerHTML = navIconVal;
-
-      //injecting each span into created div
-      newDiv.appendChild(navIcon);
     }
 
     //send response to background.js allerting success
@@ -61,6 +70,28 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     sendResponse({result: "Scrolled Up"});
   }
 });
+
+
+function isElementInViewport(el) {
+  var rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document. documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document. documentElement.clientWidth)
+  );
+}
+
+
+function checkIfClickable(pageAtt){
+  // elementName = pageAtt.tagName.toLowerCase()
+  //
+  // if (pageAtt.hasAttribute('onclick')){
+  //   return true;
+  // }
+
+  return true;
+}
 
 function generateRandomString(navValueList, length){
   //random string and assigning it to nav icon
