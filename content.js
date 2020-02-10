@@ -12,12 +12,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
     //retireve and loop through each selected attribute
     var pageAtts = document.querySelectorAll('input,img,button,a');
-    //
-    // for (atts of allPageAtts){
-    //   if $(atts).visible(true){
-    //     var pageAtt.push(atts)
-    //   }
-    // }
 
     var navValueList = [];
     for (att of pageAtts){
