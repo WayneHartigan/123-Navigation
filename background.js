@@ -1,19 +1,6 @@
-function sendMessagetoContext (msg){
-  chrome.tabs.query({active: true, currentWindow:true}, function(tabs){
-    chrome.tabs.sendMessage(tabs[0].id, {command: msg}, function(response){
-      try{
-        console.log(response.result);
-      }
-      catch(r){
-        console.log("No Response");
-      }
-
-    })
-  })
-};
-
 document.addEventListener('DOMContentLoaded', function() {
-  function getSpeech (){
+  function getSpeech (navValues){
+
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
     var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
     var grammar = '#JSGF V1.0;'
@@ -32,27 +19,43 @@ document.addEventListener('DOMContentLoaded', function() {
           message.textContent = command;
         }
         catch (e){
-          console.log("No voice picked up")
+          //pass
         }
-        if (command.toLowerCase().includes('navigation')){
-          sendMessagetoContext("newDom");
+        if (navValues){
+          var foundNav = false;
+          console.log("Trying to find nav object with the value:" + command);
+          // iterate over each element in the array
+          searchTerm = command.trim();
+          for (var i = 0; i < navValues.length; i++){
+            console.log(navValues[i].elementId);
+            if (command.toUpperCase() == navValues[i].navValue){
+              console.log("WE FOUND HER");
+              console.log(navValues[i]);
+              sendMessagetoContext("pressButton", navValues[i].elementId)
+              navValues = null;
+              foundNav = true;
+              break;
+            }
+          }
+          if (!foundNav){
+            getSpeech(navValues);
+          }
         }
-        else if (command.toLowerCase().includes('take note')){
-          var note = command.split("take note").pop();
-          alert(note);
-        }
-        else if (command.toLowerCase().includes('cancel')){
-          sendMessagetoContext("cancelDom");
-        }
-        else if (command.toLowerCase().includes('scroll down')){
-          sendMessagetoContext("scrollDown");
-        }
-        else if (command.toLowerCase().includes('scroll up')){
-          sendMessagetoContext("scrollUp");
+        else{
+          if (command.toLowerCase().includes('test')){
+            sendMessagetoContext("newDom", null);
+            // return;
+          }
+          else if (command.toLowerCase().includes('cancel')){
+            sendMessagetoContext("cancelDom", null);
+          }
+          else{
+            getSpeech(null);
+          }
         }
     };
     recognition.onend = function(event) {
-      recognition.start();
+      console.log("ITS BEEN STOPPED!!!");
     }
     recognition.onerror = function(event) {
       try{
@@ -64,7 +67,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     recognition.start();
   }
-  getSpeech();
+  getSpeech(null);
+
+  String.prototype.trim = function() 
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+
+  function sendMessagetoContext (msg, objectToPress){
+    chrome.tabs.query({active: true, currentWindow:true}, function(tabs){
+      chrome.tabs.sendMessage(tabs[0].id, {command: msg, objectToPress: objectToPress}, function(response){
+        if (response.result.includes("Nav Icons")){
+          var navList = response.navObjects;
+          getSpeech(navList);
+          console.log("Created Nav Icons.");
+        }
+        else{
+          try{
+            console.log(response.result);
+            getSpeech(null);
+          }
+          catch (e){
+            console.log("Some error occured with response");
+          }
+        }
+      })
+    })
+  };
+
 }, false);
 
 chrome.runtime.onInstalled.addListener(function (object) {

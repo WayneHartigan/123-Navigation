@@ -1,4 +1,6 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+
+  var navObjectList = [];
   if (request.command == 'newDom'){
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -12,17 +14,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
     //retireve and loop through each selected attribute
     var pageAtts = document.querySelectorAll('input,img,button,a');
-    //
-    // for (atts of allPageAtts){
-    //   if $(atts).visible(true){
-    //     var pageAtt.push(atts)
-    //   }
-    // }
 
     var navValueList = [];
+    var id = 1;
     for (att of pageAtts){
-      console.log(isElementInViewport(att));
-      console.log(checkIfClickable(att));
       if (isElementInViewport(att) && checkIfClickable(att)){
         //retrieving details of each selected attribute
         var distance = att.getBoundingClientRect();
@@ -36,50 +31,64 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         var style = "background-color:blue; border-radius:3px; height:22px; width:22px; font-style:bold; font-size:15px; z-index:1111111111115656; color:white; position: absolute; top:"+newTop+"px; left:"+newLeft+"px;";
         navIcon.setAttribute("style", style);
 
-        if (navValueList.length >= 26){
-            var navIconVal = generateRandomString(navValueList, 2);
-        }
-        else{
-          var navIconVal = generateRandomString(navValueList, 1);
-        }
+        var navIconVal = generateRandomString(navValueList, 2);
         navValueList.push(navIconVal)
 
         navIcon.innerHTML = navIconVal;
 
         //injecting each span into created div
         newDiv.appendChild(navIcon);
+
+        if (!att.id) {
+          att.id = navIconVal;
+        }
+
+        var navObject = {
+            "id": id,
+            "elementId" : att.id,
+            "navValue": navIconVal
+          }
+        // att.click();
+        navObjectList.push(navObject);
+        id++;
       }
       else{
         //pass
       }
     }
-
     //send response to background.js allerting success
-    sendResponse({result: "Nav Icons added successfully"});
+    sendResponse({result: "Nav Icons", navObjects: navObjectList});
+  }
+  else if (request.objectToPress){
+    console.log("TRYING TO PRESS");
+    console.log(navObjectList);
+    elementId = request.objectToPress;
+    document.getElementById(elementId).click();
+    sendResponse({result: "Successfully Clicked!", navObjects: null});
   }
   else if (request.command == 'cancelDom'){
     removeDom();
-    sendResponse({result: "Nav Icons removed successfully"});
+    sendResponse({result: "Nav Icons removed successfully", navObjects: null});
   }
   else if (request.command == 'scrollDown'){
     window.scroll(0, 500);
-    sendResponse({result: "Scrolled Down"});
+    sendResponse({result: "Scrolled Down", navObjects: null});
   }
 
   else if (request.command == 'scrollUp'){
     window.scroll(0, -500);
-    sendResponse({result: "Scrolled Up"});
+    sendResponse({result: "Scrolled Up", navObjects: null});
   }
 });
 
 
-function isElementInViewport(el) {
-  var rect = el.getBoundingClientRect();
+function isElementInViewport(att) {
+  var attDetails = att.getBoundingClientRect();
   return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document. documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document. documentElement.clientWidth)
+    attDetails.top >= 0 &&
+    attDetails.left >= 0 &&
+    attDetails.bottom <= (window.innerHeight || document. documentElement.clientHeight) &&
+    attDetails.right <= (window.innerWidth || document. documentElement.clientWidth)
   );
 }
 
