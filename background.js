@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
           message.textContent = command;
         }
         catch (e){
-          //pass
+          // pass 
         }
         if (navValues){
           var foundNav = false;
@@ -81,6 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
           var navList = response.navObjects;
           getSpeech(navList);
           console.log("Created Nav Icons.");
+        }
+        else if (response.result.includes("Successfully Clicked!")){
+          var navList = response.navObjects;
+          getSpeech(null);
+          console.log("Resetting.");
         }
         else{
           try{
