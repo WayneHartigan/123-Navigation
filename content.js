@@ -94,13 +94,7 @@ function isElementInViewport(att) {
 
 
 function checkIfClickable(pageAtt){
-  // elementName = pageAtt.tagName.toLowerCase()
-  //
-  // if (pageAtt.hasAttribute('onclick')){
-  //   return true;
-  // }
-
-  // return (pageAtt.hasAttribute('onclick'));
+  // Checks if element is disabled
   if (pageAtt.offsetWidth > 0 && pageAtt.offsetHeight > 0){
     return true;
   }
@@ -111,12 +105,13 @@ function checkIfClickable(pageAtt){
 
 function generateRandomString(navValueList, length){
   //random string and assigning it to nav icon
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXZ';
   var navIconVal = ""
+  var bannedValues = ['o', 'ff']
   for (var i = 0; i < length; i++){
     navIconVal += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-  if (navValueList.includes(navIconVal)){
+  if (navValueList.includes(navIconVal) || bannedValues.includes(navIconVal)){
     return generateRandomString(navValueList, length);
   }
   else{
