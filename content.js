@@ -2,8 +2,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   var navObjectList = [];
   if (request.command == 'newDom'){
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
     //create new div to house navigating icons
     var newDiv = document.createElement('div');
     //give it some style
@@ -17,6 +15,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
     var navValueList = [];
     var id = 1;
+    var navIconVal = 0;
+    
     for (att of pageAtts){
       if (isElementInViewport(att) && checkIfClickable(att)){
         //retrieving details of each selected attribute
@@ -30,8 +30,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         navIcon.setAttribute("class", "navIcon")
         var style = "background-color:blue; border-radius:3px; height:22px; width:22px; font-style:bold; font-size:15px; z-index:1111111111115656; color:white; position: absolute; top:"+newTop+"px; left:"+newLeft+"px;";
         navIcon.setAttribute("style", style);
-
-        var navIconVal = generateRandomString(navValueList, 2);
+        navIconVal++;
         navValueList.push(navIconVal)
 
         navIcon.innerHTML = navIconVal;
@@ -69,26 +68,17 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   }
   else if (request.command == 'cancelDom'){
     removeDom();
-    sendResponse({result: "Removed", navObjects: null});
+    sendResponse({result: "Complete", navObjects: null});
   }
   else if (request.command == 'scrollDown'){
     window.scroll(0, 500);
-    sendResponse({result: "Scrolled", navObjects: null});
+    sendResponse({result: "Complete", navObjects: null});
   }
 
   else if (request.command == 'scrollUp'){
     window.scroll(0, -500);
-    sendResponse({result: "Scrolled", navObjects: null});
+    sendResponse({result: "Complete", navObjects: null});
   }
-
-  window.addEventListener('scroll', function(e) {
-    removeDom();
-    sendResponse({result: "Removed", navObjects: null});
-  });
-  window.addEventListener('click', function(e) {
-    removeDom();
-    sendResponse({result: "Removed", navObjects: null});
-  });
 });
 
 function isElementInViewport(att) {
@@ -112,16 +102,15 @@ function checkIfClickable(pageAtt){
   }
 }
 
-function generateRandomString(navValueList, length){
+function generateRandomNumber(navValueList, length){
   //random string and assigning it to nav icon
   var characters = '0123456789';
   var navIconVal = ""
-  var bannedValues = ['OO', 'FF']
   for (var i = 0; i < length; i++){
     navIconVal += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-  if (navValueList.includes(navIconVal) || bannedValues.includes(navIconVal)){
-    return generateRandomString(navValueList, length);
+  if (navValueList.includes(navIconVal)|| navIconVal.charAt(0).includes('0')){
+    return generateRandomNumber(navValueList, length);
   }
   else{
     return navIconVal;
@@ -136,5 +125,3 @@ function removeDom(){
     console.log(f);
   }
 }
-
-//chrome-extension://fdbafhacfnhmcckdmepacejfkieiocpb/index.html
