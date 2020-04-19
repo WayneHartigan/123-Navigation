@@ -114,7 +114,7 @@ function checkIfClickable(pageAtt){
 
 function generateRandomString(navValueList, length){
   //random string and assigning it to nav icon
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXZ';
+  var characters = '0123456789';
   var navIconVal = ""
   var bannedValues = ['OO', 'FF']
   for (var i = 0; i < length; i++){
