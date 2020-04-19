@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
           else if (command.toLowerCase().includes('cancel')){
             sendMessagetoContext("cancelDom", null);
           }
+          else if (command.toLowerCase().includes('scroll down')){
+            sendMessagetoContext("scrollDown", null);
+          }
+          else if (command.toLowerCase().includes('scroll up')){
+            sendMessagetoContext("scrollUp", null);
+          }
           else{
             getSpeech(null);
           }
@@ -69,8 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   getSpeech(null);
 
-  String.prototype.trim = function() 
-    {
+  String.prototype.trim = function() {
         return String(this).replace(/^\s+|\s+$/g, '');
     };
 
@@ -82,10 +87,15 @@ document.addEventListener('DOMContentLoaded', function() {
           getSpeech(navList);
           console.log("Created Nav Icons.");
         }
-        else if (response.result.includes("Successfully Clicked!")){
-          var navList = response.navObjects;
+        else if (response.result.includes("Clicked")){
           getSpeech(null);
           console.log("Resetting.");
+        }
+        else if (response.result.includes("Removed")) {
+          getSpeech(null);
+        }
+        else if (response.result.includes("Scrolled")) {
+          getSpeech(null);
         }
         else{
           try{
@@ -94,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
           catch (e){
             console.log("Some error occured with response");
+            console.log(e);
           }
         }
       })
@@ -103,14 +114,14 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 chrome.runtime.onInstalled.addListener(function (object) {
-    chrome.tabs.create({url: "chrome-extension://dmbdalginlkikpgpdjihliecefainbab/index.html"}, function (tab) {
+    chrome.tabs.create({url: "/index.html"}, function (tab) {
       window.onload = function permission(){
         navigator.mediaDevices.getUserMedia({ audio: true, video: false })
         .then((mediaStream) => {
-        //in promise will be triggered user permission requests
+        //pass
         })
         .catch((error) => {
-          //manage error
+          console.log(error)
         });
       }
     });

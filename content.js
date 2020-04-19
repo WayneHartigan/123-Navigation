@@ -64,23 +64,32 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     console.log(navObjectList);
     elementId = request.objectToPress;
     document.getElementById(elementId).click();
-    sendResponse({result: "Successfully Clicked!", navObjects: null});
+    removeDom();
+    sendResponse({result: "Clicked", navObjects: null});
   }
   else if (request.command == 'cancelDom'){
     removeDom();
-    sendResponse({result: "Nav Icons removed successfully", navObjects: null});
+    sendResponse({result: "Removed", navObjects: null});
   }
   else if (request.command == 'scrollDown'){
     window.scroll(0, 500);
-    sendResponse({result: "Scrolled Down", navObjects: null});
+    sendResponse({result: "Scrolled", navObjects: null});
   }
 
   else if (request.command == 'scrollUp'){
     window.scroll(0, -500);
-    sendResponse({result: "Scrolled Up", navObjects: null});
+    sendResponse({result: "Scrolled", navObjects: null});
   }
-});
 
+  window.addEventListener('scroll', function(e) {
+    removeDom();
+    sendResponse({result: "Removed", navObjects: null});
+  });
+  window.addEventListener('click', function(e) {
+    removeDom();
+    sendResponse({result: "Removed", navObjects: null});
+  });
+});
 
 function isElementInViewport(att) {
   var attDetails = att.getBoundingClientRect();
@@ -107,7 +116,7 @@ function generateRandomString(navValueList, length){
   //random string and assigning it to nav icon
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXZ';
   var navIconVal = ""
-  var bannedValues = ['o', 'ff']
+  var bannedValues = ['OO', 'FF']
   for (var i = 0; i < length; i++){
     navIconVal += characters.charAt(Math.floor(Math.random() * characters.length));
   }
@@ -124,15 +133,8 @@ function removeDom(){
     document.getElementById("navigation-icons-div").remove();
   }
   catch (f){
-    //do nothing
+    console.log(f);
   }
 }
-
-window.addEventListener('scroll', function(e) {
-  removeDom();
-});
-window.addEventListener('click', function(e) {
-  removeDom();
-});
 
 //chrome-extension://fdbafhacfnhmcckdmepacejfkieiocpb/index.html
