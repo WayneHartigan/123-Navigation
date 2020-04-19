@@ -1,3 +1,7 @@
+window.onload=function(){
+  console.log("page load!");
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   var navObjectList = [];
@@ -99,21 +103,6 @@ function checkIfClickable(pageAtt){
   }
   else{
     return false;
-  }
-}
-
-function generateRandomNumber(navValueList, length){
-  //random string and assigning it to nav icon
-  var characters = '0123456789';
-  var navIconVal = ""
-  for (var i = 0; i < length; i++){
-    navIconVal += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  if (navValueList.includes(navIconVal)|| navIconVal.charAt(0).includes('0')){
-    return generateRandomNumber(navValueList, length);
-  }
-  else{
-    return navIconVal;
   }
 }
 
