@@ -13,7 +13,7 @@ function getSpeech (navValues){
   recognition.grammars = speechRecognitionList;
   recognition.lang = 'en-US';
   recognition.interimResults = false;
-  recognition.continuous = true; 
+  recognition.continuous = true;
 
   recognition.start()
 
@@ -124,5 +124,7 @@ function sendMessagetoContext (msg, objectToPress){
 
 chrome.runtime.onInstalled.addListener(function (object) {
   chrome.tabs.create({
-    url: chrome.extension.getURL("welcome.html")})
+        url: chrome.extension.getURL("welcome.html"),
+        active: true
+    })
 });
