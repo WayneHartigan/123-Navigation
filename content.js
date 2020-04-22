@@ -71,12 +71,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     sendResponse({result: "Complete", navObjects: null});
   }
   else if (request.command == 'scrollDown'){
-    window.scroll(0, 500);
+    window.scrollBy(0, 400);
     sendResponse({result: "Complete", navObjects: null});
   }
 
   else if (request.command == 'scrollUp'){
-    window.scroll(0, -500);
+    window.scrollBy(0, -400);
     sendResponse({result: "Complete", navObjects: null});
   }
 });
