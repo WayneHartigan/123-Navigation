@@ -79,7 +79,9 @@ function getSpeech (navValues){
   recognition.onerror = function(event) {
     try{
       console.log("There has been an error: " + event.error);
-      useless_error = true;
+      if (event.error == "no-speech" || event.error == "aborted"){
+        useless_error = true;
+      }
     }
     catch (f){
       console.log("Theres been an error");
@@ -121,15 +123,6 @@ function sendMessagetoContext (msg, objectToPress){
 };
 
 chrome.runtime.onInstalled.addListener(function (object) {
-  chrome.tabs.create({url: "/index.html"}, function (tab) {
-    window.onload = function permission(){
-      navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-      .then((mediaStream) => {
-      //pass
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-    }
-  });
+  chrome.tabs.create({
+    url: chrome.extension.getURL("welcome.html")})
 });
