@@ -24,7 +24,7 @@ function getSpeech (navValues){
         message.textContent = command;
       }
       catch (e){
-        // pass 
+        console.log("An error has occured with the command!");
       }
       console.log(command);
       if (navValues){
@@ -45,7 +45,6 @@ function getSpeech (navValues){
           for (var i = 0; i < navValues.length; i++){
             console.log(navValues[i].elementId);
             if (command.includes(navValues[i].navValue)){
-              console.log("WE FOUND HER");
               console.log(navValues[i]);
               sendMessagetoContext("pressButton", navValues[i].elementId)
               navValues = null;
@@ -78,14 +77,12 @@ function getSpeech (navValues){
   }
   var useless_error = false;
   recognition.onerror = function(event) {
-    if (event.error == "no-speech"){
-      useless_error = true;
-    }
     try{
       console.log("There has been an error: " + event.error);
+      useless_error = true;
     }
     catch (f){
-      //do nothing
+      console.log("Theres been an error");
     }
   }
   recognition.onend = function(event) {

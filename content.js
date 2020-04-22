@@ -1,7 +1,3 @@
-window.onload=function(){
-  console.log("page load!");
-}
-
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   var navObjectList = [];
