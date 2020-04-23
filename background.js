@@ -24,13 +24,6 @@ function getSpeech (navValues){
   recognition.onresult = function(event) {
       var last = event.results.length - 1;
       var command = event.results[last][0].transcript;
-      try{
-        message.textContent = command;
-      }
-      catch (e){
-        console.log("An error has occured with the command!");
-        console.log(e);
-      }
       console.log(command);
       if (navValues){
         if (command.toLowerCase().includes('cancel')){
@@ -81,10 +74,15 @@ function getSpeech (navValues){
   var useless_error = false;
   recognition.onerror = function(event) {
     try{
-      console.log("There has been an error: " + event.error);
-      // if (event.error == "no-speech"){
-      //   useless_error = true;
-      // }
+      if (event.error == "no-speech"){
+          useless_error = true;
+      }
+      else if (event.error == "aborted") {
+          //do nothing, not an error
+      }
+      else {
+          console.log("There has been an error: " + event.error);
+      }
     }
     catch (f){
       console.log("Theres been an error");
@@ -94,7 +92,7 @@ function getSpeech (navValues){
     console.log("Stopped");
     if (useless_error){
       console.log("Stopped because useless");
-      getSpeech(null);
+      recognition.start();
     }
   }
 }

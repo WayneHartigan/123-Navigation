@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     var navValueList = [];
     var id = 1;
     var navIconVal = 0;
-    
+
     for (att of pageAtts){
       if (isElementInViewport(att) && checkIfClickable(att)){
         //retrieving details of each selected attribute
@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         var navIcon = document.createElement('span');
         //applying style
         navIcon.setAttribute("class", "navIcon")
-        var style = "background-color:blue; border-radius:3px; height:22px; width:22px; font-style:bold; font-size:15px; z-index:1111111111115656; color:white; position: absolute; top:"+newTop+"px; left:"+newLeft+"px;";
+        var style = "font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: rgb(255, 255, 255); text-shadow: 0.6px 0.6px 0 #000; display: flex; align-items: center; justify-content: center; height: 22px; width: 22px; background-image: linear-gradient(to right, rgb(35, 131, 187) , rgb(112, 176, 197)); border: solid 1px black; box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19); position: absolute; z-index:1111111111115656; top:"+newTop+"px; left:"+newLeft+"px;";
         navIcon.setAttribute("style", style);
         navIconVal++;
         navValueList.push(navIconVal)
@@ -71,12 +71,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     sendResponse({result: "Complete", navObjects: null});
   }
   else if (request.command == 'scrollDown'){
-    window.scrollBy(0, 400);
+    window.scrollBy(0, 500);
     sendResponse({result: "Complete", navObjects: null});
   }
 
   else if (request.command == 'scrollUp'){
-    window.scrollBy(0, -400);
+    window.scrollBy(0, -500);
     sendResponse({result: "Complete", navObjects: null});
   }
 });
@@ -86,8 +86,8 @@ function isElementInViewport(att) {
   return (
     attDetails.top >= 0 &&
     attDetails.left >= 0 &&
-    attDetails.bottom <= (window.innerHeight || document. documentElement.clientHeight) &&
-    attDetails.right <= (window.innerWidth || document. documentElement.clientWidth)
+    attDetails.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    attDetails.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
 
