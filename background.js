@@ -35,6 +35,12 @@ function getSpeech (navValues){
         else if (command.toLowerCase().includes('scroll up')){
           sendMessagetoContext("scrollUp", null);
         }
+        else if (command.toLowerCase().includes('go back')){
+          sendMessagetoContext("goBack", null);
+        }
+        else if (command.toLowerCase().includes('go forward')){
+          sendMessagetoContext("goForward", null);
+        }
         else {
           var foundNav = false;
           // iterate over each element in the array
@@ -63,6 +69,12 @@ function getSpeech (navValues){
         }
         else if (command.toLowerCase().includes('scroll up')){
           sendMessagetoContext("scrollUp", null);
+        }
+        else if (command.toLowerCase().includes('go back')){
+          sendMessagetoContext("goBack", null);
+        }
+        else if (command.toLowerCase().includes('go forward')){
+          sendMessagetoContext("goForward", null);
         }
         else{
           getSpeech(null);

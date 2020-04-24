@@ -79,6 +79,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     window.scrollBy(0, -500);
     sendResponse({result: "Complete", navObjects: null});
   }
+  else if (request.command == 'goBack'){
+    window.history.back();
+    sendResponse({result: "Complete", navObjects: null});
+  }
+  else if (request.command == 'goForward'){
+    window.history.forward();
+    sendResponse({result: "Complete", navObjects: null});
+  }
 });
 
 function isElementInViewport(att) {
