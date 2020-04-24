@@ -37,7 +37,6 @@ function getSpeech (navValues){
         }
         else {
           var foundNav = false;
-          console.log("Trying to find nav object with the value:" + command);
           // iterate over each element in the array
           searchTerm = command;
           for (var i = 0; i < navValues.length; i++){
@@ -75,17 +74,17 @@ function getSpeech (navValues){
   recognition.onerror = function(event) {
     try{
       if (event.error == "no-speech"){
-          useless_error = true;
+        useless_error = true;
       }
       else if (event.error == "aborted") {
-          //do nothing, not an error
+        //do nothing, not an error
       }
       else {
-          console.log("There has been an error: " + event.error);
+        console.log("There has been an error: " + event.error);
       }
     }
     catch (f){
-      console.log("Theres been an error");
+      console.log("Theres been an error trying to catch error!: " + f);
     }
   }
   recognition.onend = function(event) {
@@ -96,10 +95,6 @@ function getSpeech (navValues){
     }
   }
 }
-
-String.prototype.trim = function() {
-    return String(this).replace(/^\s+|\s+$/g, '');
-};
 
 function sendMessagetoContext (msg, objectToPress){
   chrome.tabs.query({active: true, currentWindow:true}, function(tabs){
