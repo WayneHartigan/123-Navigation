@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     elementId = request.objectToPress;
     document.getElementById(elementId).click();
     removeDom();
-    sendResponse({result: "Clicked", navObjects: null});
+    sendResponse({result: "Complete", navObjects: null});
   }
   else if (request.command == 'cancelDom'){
     removeDom();
