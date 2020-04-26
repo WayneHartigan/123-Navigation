@@ -102,7 +102,6 @@ function getSpeech (navValues){
   recognition.onend = function(event) {
     console.log("Stopped");
     if (useless_error){
-      console.log("Stopped because useless");
       recognition.start();
     }
   }
