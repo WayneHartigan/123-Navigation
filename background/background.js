@@ -132,7 +132,7 @@ function sendMessagetoContext (msg, objectToPress){
 
 chrome.runtime.onInstalled.addListener(function (object) {
   chrome.tabs.create({
-        url: chrome.extension.getURL("welcome.html"),
+        url: chrome.extension.getURL("html/welcome.html"),
         active: true
     })
 });
