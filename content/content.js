@@ -2,11 +2,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   var navObjectList = [];
   if (request.command == 'newDom'){
+    //if command has been called twice, remove old dom.
+    removeDom();
     //create new div to house navigating icons
     var newDiv = document.createElement('div');
     //give it some style
     newDiv.setAttribute("id", "navigation-icons-div")
-    newDiv.setAttribute("style", "height:100%; width:100%; z-index:111111111111; position:fixed; top:0; left:0; text-align: center;" );
+    newDiv.setAttribute("style", "height:100%; width:100%; z-index:111111111111; position:fixed; top:0; left:0; text-align: center;");
     //inject div into body of webpage
     document.body.appendChild(newDiv);
 

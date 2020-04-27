@@ -1,7 +1,4 @@
-window.onload=function(){
-  getSpeech(null);
-}
-
+window.onload = getSpeech(null);
 function getSpeech (navValues){
 
   var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
@@ -28,6 +25,9 @@ function getSpeech (navValues){
       if (navValues){
         if (command.toLowerCase().includes('cancel')){
           sendMessagetoContext("cancelDom", null);
+        }
+        else if (command.toLowerCase().includes('test')){
+          sendMessagetoContext("newDom", null);
         }
         else if (command.toLowerCase().includes('scroll down')){
           sendMessagetoContext("scrollDown", null);
