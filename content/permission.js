@@ -8,5 +8,4 @@ function getPermission(){
     getPermission();
   });
 }
-
 getPermission();
