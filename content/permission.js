@@ -4,9 +4,7 @@ function getPermission(){
     //pass
   })
   .catch((error) => {
-    console.log(error)
-    getPermission();
+    console.log(error);
   });
 }
-
 getPermission();
