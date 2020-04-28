@@ -11,17 +11,13 @@ recognition.interimResults = false;
 recognition.continuous = false;
 recognition.start();
 
-recognition.onstart = function(event) {
-  console.log("Started")
-}
 recognition.onresult = function(event) {
-    speechResults(event, navValues);
+  speechResults(event, navValues);
 };
 recognition.onerror = function(event) {
-    console.log("Theres been an error: " + event.error);
+  console.log("Theres been an error: " + event.error);
 }
 recognition.onend = function(event) {
-  console.log("Stopped");
   recognition.start();
 }
 
