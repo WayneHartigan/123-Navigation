@@ -15,7 +15,9 @@ recognition.onresult = function(event) {
   speechResults(event, navValues);
 };
 recognition.onerror = function(event) {
-  console.log("Theres been an error: " + event.error);
+  if (event.error != "no-speech"){
+    console.log("Theres been an error: " + event.error);
+  }
 }
 recognition.onend = function(event) {
   recognition.start();
