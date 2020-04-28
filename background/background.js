@@ -46,16 +46,13 @@ function speechResults(event, navValues){
       sendMessagetoContext("goForward", null);
     }
     else {
-      var foundNav = false;
       // iterate over each element in the array
-      searchTerm = command;
       for (var i = 0; i < navValues.length; i++){
         console.log(navValues[i].elementId);
         if (command == navValues[i].navValue){
           console.log(navValues[i]);
           sendMessagetoContext("pressButton", navValues[i].elementId)
           navValues = null;
-          foundNav = true;
           break;
         }
       }
