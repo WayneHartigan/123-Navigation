@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     document.body.appendChild(newDiv);
 
     //retireve and loop through each selected attribute
-    var pageAtts = document.querySelectorAll('input,img,button,a');
+    var pageAtts = document.querySelectorAll('input,img,button,a,textarea,label,checkbox,color,file,hidden,image,radio,reset,submit');
 
     var navValueList = [];
     var id = 1;
@@ -61,8 +61,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     sendResponse({result: "Nav Icons", navObjects: navObjectList});
   }
   else if (request.objectToPress){
-    console.log("TRYING TO PRESS");
-    console.log(navObjectList);
     elementId = request.objectToPress;
     document.getElementById(elementId).click();
     removeDom();

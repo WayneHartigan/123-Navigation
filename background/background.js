@@ -18,10 +18,10 @@ recognition.onerror = function(event) {
   if (event.error != "no-speech"){
     console.log("Theres been an error: " + event.error);
   }
-}
+};
 recognition.onend = function(event) {
   recognition.start();
-}
+};
 
 function speechResults(event, navValues){
   var last = event.results.length - 1;
@@ -48,9 +48,7 @@ function speechResults(event, navValues){
     else {
       // iterate over each element in the array
       for (var i = 0; i < navValues.length; i++){
-        console.log(navValues[i].elementId);
         if (command == navValues[i].navValue){
-          console.log(navValues[i]);
           sendMessagetoContext("pressButton", navValues[i].elementId)
           navValues = null;
           break;
