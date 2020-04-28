@@ -101,7 +101,6 @@ function isElementInViewport(att) {
   );
 }
 
-
 function checkIfClickable(pageAtt){
   // Checks if element is disabled
   if (pageAtt.offsetWidth > 0 && pageAtt.offsetHeight > 0){

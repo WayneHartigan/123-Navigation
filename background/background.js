@@ -18,7 +18,7 @@ recognition.onresult = function(event) {
     speechResults(event, navValues);
 };
 recognition.onerror = function(event) {
-    console.log("Theres been an error trying to catch error!: " + event.error);
+    console.log("Theres been an error: " + event.error);
 }
 recognition.onend = function(event) {
   console.log("Stopped");
@@ -32,7 +32,7 @@ function speechResults(event, navValues){
     if (command.toLowerCase().includes('cancel')){
       sendMessagetoContext("cancelDom", null);
     }
-    else if (command.toLowerCase().includes('test')){
+    else if (command.toLowerCase().includes('navigation')){
       sendMessagetoContext("newDom", null);
     }
     else if (command.toLowerCase().includes('scroll down')){
@@ -64,7 +64,7 @@ function speechResults(event, navValues){
     }
   }
   else{
-    if (command.toLowerCase().includes('test')){
+    if (command.toLowerCase().includes('navigation')){
       sendMessagetoContext("newDom", null);
     }
     else if (command.toLowerCase().includes('scroll down')){

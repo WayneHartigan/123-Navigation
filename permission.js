@@ -5,8 +5,6 @@ function getPermission(){
   })
   .catch((error) => {
     console.log(error)
-    getPermission();
   });
 }
-
 getPermission();
