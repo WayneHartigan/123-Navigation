@@ -60,32 +60,42 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         sendResponse({result: "Nav Icons", navObjects: navObjectList});
     }
     else if (request.objectToPress){
-      elementId = request.objectToPress;
-      document.getElementById(elementId).click();
-      removeDom();
-      sendResponse({result: "Complete", navObjects: null});
+        elementId = request.objectToPress;
+        document.getElementById(elementId).click();
+        removeDom();
+        sendResponse({result: "Complete", navObjects: null});
     }
     else if (request.command == 'cancelDom'){
-      removeDom();
-      sendResponse({result: "Complete", navObjects: null});
+        removeDom();
+        sendResponse({result: "Complete", navObjects: null});
     }
     else if (request.command == 'scrollDown'){
-      window.scrollBy(0, 500);
-      sendResponse({result: "Complete", navObjects: null});
+        removeDom();
+        window.scrollBy(0, 500);
+        sendResponse({result: "Complete", navObjects: null});
     }
 
     else if (request.command == 'scrollUp'){
-      window.scrollBy(0, -500);
-      sendResponse({result: "Complete", navObjects: null});
+        removeDom();
+        window.scrollBy(0, -500);
+        sendResponse({result: "Complete", navObjects: null});
     }
     else if (request.command == 'goBack'){
-      window.history.back();
-      sendResponse({result: "Complete", navObjects: null});
+        window.history.back();
+        sendResponse({result: "Complete", navObjects: null});
     }
     else if (request.command == 'goForward'){
-      window.history.forward();
-      sendResponse({result: "Complete", navObjects: null});
+        window.history.forward();
+        sendResponse({result: "Complete", navObjects: null});
     }
+    document.onscroll = function(){
+        removeDom();
+        sendResponse({result: "Complete", navObjects: null});
+    };
+    document.onclick = function(){
+        removeDom();
+        sendResponse({result: "Complete", navObjects: null});
+    };
 });
 
 function isElementInViewport(att) {
