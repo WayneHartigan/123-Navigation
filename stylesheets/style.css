@@ -1,11 +1,11 @@
 .border {
-  width: 200px;
-  border: 2px solid blue;
-  padding: 10px;
-  margin: 4px;
-  text-align: center;
+    width: 200px;
+    border: 2px solid blue;
+    padding: 10px;
+    margin: 4px;
+    text-align: center;
 }
 
 .logoImg{
-  width: 200px;
+    width: 200px;
 }
