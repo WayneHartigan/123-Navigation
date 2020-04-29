@@ -1,0 +1,35 @@
+.border {
+    width: 200px;
+    border: 2px solid blue;
+    padding: 10px;
+    margin: 4px;
+    text-align: center;
+}
+
+.logoImg{
+    width: 200px;
+}
+
+#loadWelcome {
+    font-size: 10px;
+}
+
+#command {
+    font-style: italic;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #4a4949;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

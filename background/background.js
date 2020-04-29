@@ -46,9 +46,11 @@ function speechResults(event, navValues){
             sendMessagetoContext("goForward", null);
         }
         else {
+            var commandCheck = " " + command + " ";
             // iterate over each element in the array
             for (var i = 0; i < navValues.length; i++){
-                if (command == navValues[i].navValue){
+                var navCheck = " " + (navValues[i].navValue).toString() + " ";
+                if (commandCheck.includes(navCheck)){
                     sendMessagetoContext("pressButton", navValues[i].elementId)
                     navValues = null;
                     break;
