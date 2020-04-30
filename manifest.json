@@ -18,9 +18,8 @@
         "38": "images/logo.png"
         }
     },
-        "permissions": [
+    "permissions": [
         "tabs",
-        "storage",
         "activeTab"
     ]
 }
