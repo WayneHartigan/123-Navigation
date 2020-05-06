@@ -18,6 +18,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         var pageAtts = document.querySelectorAll('input,img,button,a,textarea,label,checkbox,color,file,hidden,image,radio,reset,submit');
 
         var navValueList = [];
+        var elemIds = [];
         var id = 1;
         var navIconVal = 0;
 
@@ -41,10 +42,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
                 //injecting each span into created div
                 newDiv.appendChild(navIcon);
-
                 if (!att.id) {
                     att.id = navIconVal;
                 }
+                if (elemIds.includes(att.id)){
+                    att.id = navIconVal;
+                }
+                elemIds.push(att.id);
 
                 var navObject = {
                     "id": id,
