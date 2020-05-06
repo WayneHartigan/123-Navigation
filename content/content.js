@@ -3,7 +3,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     var navObjectList = [];
     if (request.command == 'newDom'){
         //if command has been called twice, remove old dom.
-        removeDom();
+        if (request.objectToPress){
+            removeDom();
+        }
         //create new div to house navigating icons
         var newDiv = document.createElement('div');
         //give it some style
@@ -59,7 +61,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         //send response to background.js allerting success
         sendResponse({result: "Nav Icons", navObjects: navObjectList});
     }
-    else if (request.objectToPress){
+    else if (request.command == 'pressButton' && request.objectToPress){
         elementId = request.objectToPress;
         document.getElementById(elementId).click();
         removeDom();

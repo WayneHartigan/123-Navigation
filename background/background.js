@@ -31,7 +31,7 @@ function speechResults(event, navValues){
             sendMessagetoContext("cancelDom", null);
         }
         else if (command.toLowerCase().includes('navigation')){
-            sendMessagetoContext("newDom", null);
+            sendMessagetoContext("newDom", "remove");
         }
         else if (command.toLowerCase().includes('scroll down')){
             sendMessagetoContext("scrollDown", null);
