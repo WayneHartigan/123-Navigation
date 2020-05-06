@@ -100,6 +100,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         window.scrollTo(0,document.body.scrollHeight);
         sendResponse({result: "Complete", navObjects: null});
     }
+    else if (request.command == 'search'){
+        removeDom();
+        window.open('http://google.com/search?q='+ request.objectToPress, "_self");
+        sendResponse({result: "Complete", navObjects: null});
+    }
     document.onscroll = function(){
         removeDom();
         sendResponse({result: "Complete", navObjects: null});

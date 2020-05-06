@@ -53,7 +53,7 @@ function speechResults(event, navValues){
         }
         else if (command.toLowerCase().includes('search for ')){
             var searchTerm = command.split('search for ').pop();
-            window.open('http://google.com/search?q='+ searchTerm);
+            sendMessagetoContext("search", searchTerm)
         }
         else {
             var commandCheck = " " + command + " ";
@@ -92,7 +92,7 @@ function speechResults(event, navValues){
         }
         else if (command.toLowerCase().includes('search for ')){
             var searchTerm = command.split('search for ').pop();
-            window.open('http://google.com/search?q='+ searchTerm);
+            sendMessagetoContext("search", searchTerm)
         }
     }
 }
