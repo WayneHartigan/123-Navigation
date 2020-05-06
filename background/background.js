@@ -80,12 +80,17 @@ function speechResults(event, navValues){
 function sendMessagetoContext (msg, objectToPress){
     chrome.tabs.query({active: true, currentWindow:true}, function(tabs){
         chrome.tabs.sendMessage(tabs[0].id, {command: msg, objectToPress: objectToPress}, function(response){
-            if (response.result.includes("Nav Icons")){
-                var navList = response.navObjects;
-                navValues = navList;
+            if (response === undefined){
+                //pass
             }
-            else if (response.result.includes("Complete")){
-                navValues = null;
+            else {
+                if (response.result.includes("Nav Icons")){
+                    var navList = response.navObjects;
+                    navValues = navList;
+                }
+                else if (response.result.includes("Complete")){
+                    navValues = null;
+                }
             }
         })
     })
