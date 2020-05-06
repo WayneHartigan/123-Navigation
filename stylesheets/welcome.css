@@ -15,7 +15,6 @@ h1 {
 
 h2 {
     color: #db771a;
-    margin-bottom: 50px;
 }
 
 h3 {
@@ -29,10 +28,6 @@ p {
     color: #ffffff;
 }
 
-.desc {
-    margin-bottom: 100px;
-}
-
 .footer {
   font-size: 8px;
 }
@@ -43,4 +38,28 @@ p {
     height: 75%;
     width: 75%;
     text-align: center;
+}
+
+#command {
+    font-style: italic;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #4a4949;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:nth-child(odd) {
+    background-color: grey;
 }

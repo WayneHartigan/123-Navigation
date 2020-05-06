@@ -90,6 +90,17 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         window.history.forward();
         sendResponse({result: "Complete", navObjects: null});
     }
+    else if (request.command == 'goTop'){
+        removeDom();
+        window.scrollTo(0, 0);
+        window.scrollTo(0,document.body.scrollHeight);
+        sendResponse({result: "Complete", navObjects: null});
+    }
+    else if (request.command == 'goBottom'){
+        removeDom();
+        window.scrollTo(0,document.body.scrollHeight);
+        sendResponse({result: "Complete", navObjects: null});
+    }
     document.onscroll = function(){
         removeDom();
         sendResponse({result: "Complete", navObjects: null});

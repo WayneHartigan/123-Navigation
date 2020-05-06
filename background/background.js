@@ -78,6 +78,12 @@ function speechResults(event, navValues){
         else if (command.toLowerCase().includes('go forward')){
             sendMessagetoContext("goForward", null);
         }
+        else if (command.toLowerCase().includes('scroll top')){
+            sendMessagetoContext("goTop", null);
+        }
+        else if (command.toLowerCase().includes('scroll bottom')){
+            sendMessagetoContext("goBottom", null);
+        }
         else if (command.toLowerCase().includes('search for ')){
             var searchTerm = command.split('search for ').pop();
             window.open('http://google.com/search?q='+ searchTerm);
