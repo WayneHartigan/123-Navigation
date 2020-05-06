@@ -93,7 +93,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     else if (request.command == 'goTop'){
         removeDom();
         window.scrollTo(0, 0);
-        window.scrollTo(0,document.body.scrollHeight);
         sendResponse({result: "Complete", navObjects: null});
     }
     else if (request.command == 'goBottom'){
