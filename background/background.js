@@ -90,6 +90,9 @@ function speechResults(event, navValues){
         else if (command.toLowerCase().includes('scroll bottom')){
             sendMessagetoContext("goBottom", null);
         }
+        else if (command.toLowerCase().includes('refresh page')){
+            sendMessagetoContext("refresh", null);
+        }
         else if (command.toLowerCase().includes('search for ')){
             var searchTerm = command.split('search for ').pop();
             sendMessagetoContext("search", searchTerm)
