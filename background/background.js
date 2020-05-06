@@ -39,6 +39,12 @@ function speechResults(event, navValues){
         else if (command.toLowerCase().includes('scroll up')){
             sendMessagetoContext("scrollUp", null);
         }
+        else if (command.toLowerCase().includes('scroll top')){
+            sendMessagetoContext("goTop", null);
+        }
+        else if (command.toLowerCase().includes('scroll bottom')){
+            sendMessagetoContext("goBottom", null);
+        }
         else if (command.toLowerCase().includes('go back')){
             sendMessagetoContext("goBack", null);
         }
