@@ -45,6 +45,10 @@ function speechResults(event, navValues){
         else if (command.toLowerCase().includes('go forward')){
             sendMessagetoContext("goForward", null);
         }
+        else if (command.toLowerCase().includes('search for ')){
+            var searchTerm = command.split('search for ').pop();
+            window.open('http://google.com/search?q='+ searchTerm);
+        }
         else {
             var commandCheck = " " + command + " ";
             // iterate over each element in the array
@@ -73,6 +77,10 @@ function speechResults(event, navValues){
         }
         else if (command.toLowerCase().includes('go forward')){
             sendMessagetoContext("goForward", null);
+        }
+        else if (command.toLowerCase().includes('search for ')){
+            var searchTerm = command.split('search for ').pop();
+            window.open('http://google.com/search?q='+ searchTerm);
         }
     }
 }
