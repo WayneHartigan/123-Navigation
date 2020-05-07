@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         document.body.appendChild(newDiv);
 
         //retireve and loop through each selected attribute
-        var pageAtts = document.querySelectorAll('input,img,button,a,textarea,label,checkbox,color,file,hidden,image,radio,reset,submit');
+        var pageAtts = document.querySelectorAll('*');
 
         var navValueList = [];
         var id = 1;
@@ -66,6 +66,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     else if (request.command == 'pressButton' && request.objectToPress){
         elementId = request.objectToPress;
         document.getElementsByClassName(elementId.toString())[0].click();
+        removeDom();
+        sendResponse({result: "Complete", navObjects: null});
+    }
+    else if (request.command == 'type' && request.objectToPress && request.message){
+        elementId = request.objectToPress;
+        newMessage = request.message.split("type").pop();
+        document.getElementsByClassName(elementId.toString())[0].value=newMessage;
         removeDom();
         sendResponse({result: "Complete", navObjects: null});
     }
@@ -133,17 +140,17 @@ function isElementInViewport(att) {
 
 function checkIfClickable(pageAtt){
     // Checks if element is disabled
+    console.log(pageAtt.tagName);
     if (pageAtt.offsetWidth > 0 && pageAtt.offsetHeight > 0){
-        if (pageAtt.getAttribute('onclick')!=null){
-            return true;
-        }
-        else if (pageAtt.getAttribute('href')!=null){
+        if (pageAtt.getAttribute('onclick')!=null ||
+         pageAtt.getAttribute('href')!=null ||
+         pageAtt.tagName.toLowerCase() == "button" ||
+         pageAtt.tagName.toLowerCase() == "textarea" ||
+         pageAtt.tagName.toLowerCase() == "input"){
             return true;
         }
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 function removeDom(){

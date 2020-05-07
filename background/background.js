@@ -28,32 +28,32 @@ function speechResults(event, navValues){
     var command = event.results[last][0].transcript;
     if (navValues){
         if (command.toLowerCase().includes('cancel')){
-            sendMessagetoContext("cancelDom", null);
+            sendMessagetoContext("cancelDom", null, null);
         }
         else if (command.toLowerCase().includes('navigation')){
-            sendMessagetoContext("newDom", "remove");
+            sendMessagetoContext("newDom", "remove", null);
         }
         else if (command.toLowerCase().includes('scroll down')){
-            sendMessagetoContext("scrollDown", null);
+            sendMessagetoContext("scrollDown", null, null);
         }
         else if (command.toLowerCase().includes('scroll up')){
-            sendMessagetoContext("scrollUp", null);
+            sendMessagetoContext("scrollUp", null, null);
         }
         else if (command.toLowerCase().includes('scroll top')){
-            sendMessagetoContext("goTop", null);
+            sendMessagetoContext("goTop", null, null);
         }
         else if (command.toLowerCase().includes('scroll bottom')){
-            sendMessagetoContext("goBottom", null);
+            sendMessagetoContext("goBottom", null, null);
         }
         else if (command.toLowerCase().includes('go back')){
-            sendMessagetoContext("goBack", null);
+            sendMessagetoContext("goBack", null, null);
         }
         else if (command.toLowerCase().includes('go forward')){
-            sendMessagetoContext("goForward", null);
+            sendMessagetoContext("goForward", null, null);
         }
         else if (command.toLowerCase().includes('search for ')){
             var searchTerm = command.split('search for ').pop();
-            sendMessagetoContext("search", searchTerm)
+            sendMessagetoContext("search", searchTerm, null)
         }
         else {
             var commandCheck = " " + command + " ";
@@ -61,7 +61,10 @@ function speechResults(event, navValues){
             for (var i = 0; i < navValues.length; i++){
                 var navCheck = " " + (navValues[i].navValue).toString() + " ";
                 if (commandCheck.includes(navCheck)){
-                    sendMessagetoContext("pressButton", navValues[i].elementId)
+                    if (commandCheck.toLowerCase().includes("type")){
+                        sendMessagetoContext("type", navValues[i].elementId, commandCheck.toLowerCase())
+                    }
+                    sendMessagetoContext("pressButton", navValues[i].elementId, null)
                     navValues = null;
                     break;
                 }
@@ -70,37 +73,37 @@ function speechResults(event, navValues){
     }
     else{
         if (command.toLowerCase().includes('navigation')){
-            sendMessagetoContext("newDom", null);
+            sendMessagetoContext("newDom", null, null);
         }
         else if (command.toLowerCase().includes('scroll down')){
-            sendMessagetoContext("scrollDown", null);
+            sendMessagetoContext("scrollDown", null, null);
         }
         else if (command.toLowerCase().includes('scroll up')){
-            sendMessagetoContext("scrollUp", null);
+            sendMessagetoContext("scrollUp", null, null);
         }
         else if (command.toLowerCase().includes('go back')){
-            sendMessagetoContext("goBack", null);
+            sendMessagetoContext("goBack", null, null);
         }
         else if (command.toLowerCase().includes('go forward')){
-            sendMessagetoContext("goForward", null);
+            sendMessagetoContext("goForward", null, null);
         }
         else if (command.toLowerCase().includes('scroll top')){
-            sendMessagetoContext("goTop", null);
+            sendMessagetoContext("goTop", null, null);
         }
         else if (command.toLowerCase().includes('scroll bottom')){
-            sendMessagetoContext("goBottom", null);
+            sendMessagetoContext("goBottom", null, null);
         }
         else if (command.toLowerCase().includes('refresh page')){
-            sendMessagetoContext("refresh", null);
+            sendMessagetoContext("refresh", null, null);
         }
         else if (command.toLowerCase().includes('search for ')){
             var searchTerm = command.split('search for ').pop();
-            sendMessagetoContext("search", searchTerm)
+            sendMessagetoContext("search", searchTerm, null)
         }
     }
 }
 
-function sendMessagetoContext (msg, objectToPress){
+function sendMessagetoContext (msg, objectToPress, message){
     chrome.tabs.query({active: true, currentWindow:true}, function(tabs){
         chrome.tabs.sendMessage(tabs[0].id, {command: msg, objectToPress: objectToPress}, function(response){
             if (response === undefined){
