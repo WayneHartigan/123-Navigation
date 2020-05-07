@@ -60,6 +60,7 @@ function speechResults(event, navValues){
             // iterate over each element in the array
             for (var i = 0; i < navValues.length; i++){
                 var navCheck = " " + (navValues[i].navValue).toString() + " ";
+                console.log(navValues[i].elementId);
                 if (commandCheck.includes(navCheck)){
                     sendMessagetoContext("pressButton", navValues[i].elementId)
                     navValues = null;
