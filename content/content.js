@@ -65,7 +65,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     }
     else if (request.command == 'pressButton' && request.objectToPress){
         elementId = request.objectToPress;
-        console.log(document.querySelector(elementId.toString())[0]);
+        document.getElementsByClassName(elementId.toString())[0].click();
         removeDom();
         sendResponse({result: "Complete", navObjects: null});
     }
