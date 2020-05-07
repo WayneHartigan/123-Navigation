@@ -18,7 +18,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         var pageAtts = document.querySelectorAll('input,img,button,a,textarea,label,checkbox,color,file,hidden,image,radio,reset,submit');
 
         var navValueList = [];
-        var elemIds = [];
         var id = 1;
         var navIconVal = 0;
 
@@ -42,32 +41,31 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
                 //injecting each span into created div
                 newDiv.appendChild(navIcon);
-                if (!att.id) {
-                    att.id = navIconVal;
-                }
-                if (elemIds.includes(att.id)){
-                    att.id = navIconVal;
-                }
-                elemIds.push(att.id);
+                att.classList.add(navIconVal.toString());
+                console.log(att.className);
 
                 var navObject = {
-                    "id": id,
-                    "elementId" : att.id,
+                    "elementId" : att.className.toString(),
                     "navValue": navIconVal
                 }
                 navObjectList.push(navObject);
-                id++;
             }
             else{
                 //pass
             }
         }
         //send response to background.js allerting success
-        sendResponse({result: "Nav Icons", navObjects: navObjectList});
+        if (navObjectList.length != 0){
+            sendResponse({result: "Nav Icons", navObjects: navObjectList});
+        }
+        else {
+            sendResponse({result: "Complete", navObjects: null});
+        }
+
     }
     else if (request.command == 'pressButton' && request.objectToPress){
         elementId = request.objectToPress;
-        document.getElementById(elementId).click();
+        document.getElementsByClassName(elementId.toString())[0].click();
         removeDom();
         sendResponse({result: "Complete", navObjects: null});
     }
@@ -136,7 +134,12 @@ function isElementInViewport(att) {
 function checkIfClickable(pageAtt){
     // Checks if element is disabled
     if (pageAtt.offsetWidth > 0 && pageAtt.offsetHeight > 0){
-        return true;
+        if (pageAtt.getAttribute('onclick')!=null){
+            return true;
+        }
+        else if (pageAtt.getAttribute('href')!=null){
+            return true;
+        }
     }
     else{
         return false;
