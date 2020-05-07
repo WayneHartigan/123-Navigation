@@ -133,7 +133,6 @@ function isElementInViewport(att) {
 
 function checkIfClickable(pageAtt){
     // Checks if element is disabled
-    // Checks if element is disabled
     console.log(pageAtt.tagName);
     if (pageAtt.offsetWidth > 0 && pageAtt.offsetHeight > 0){
         if (pageAtt.getAttribute('onclick')!=null ||
