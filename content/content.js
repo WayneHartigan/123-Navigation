@@ -42,7 +42,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
                 //injecting each span into created div
                 newDiv.appendChild(navIcon);
                 att.classList.add(navIconVal.toString());
-                console.log(att.className);
 
                 var navObject = {
                     "elementId" : att.className.toString(),
@@ -133,7 +132,6 @@ function isElementInViewport(att) {
 
 function checkIfClickable(pageAtt){
     // Checks if element is disabled
-    console.log(pageAtt.tagName);
     if (pageAtt.offsetWidth > 0 && pageAtt.offsetHeight > 0){
         if (pageAtt.getAttribute('onclick')!=null ||
          pageAtt.getAttribute('href')!=null ||
@@ -147,10 +145,8 @@ function checkIfClickable(pageAtt){
 }
 
 function removeDom(){
-    try{
-        document.getElementById("navigation-icons-div").remove();
-    }
-    catch (f){
-        console.log(f);
+    var dom = document.getElementById("navigation-icons-div")
+    if (dom != null){
+        dom.remove();
     }
 }
