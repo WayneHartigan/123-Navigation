@@ -4,29 +4,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         navObjectList = createBaseDiv(request);
         //send response to background.js allerting success
         if (navObjectList.length != 0){
-            sendResponse({result: "Nav Icons", navObjects: navObjectList});
+            completeResponse("Nav Icons", navObjectList);
         }
         else {
-            response();
+            completeResponse("Complete", null);
         }
     }
     else{
         checkOtherCommands(request);
-        response();
+        completeResponse("Complete", null);
     }
 
     document.onscroll = function(){
         removeDom();
-        response();
+        completeResponse("Complete", null);
 
     };
     document.onclick = function(){
         removeDom();
-        response();
+        completeResponse("Complete", null);
     };
 
-    function response() {
-        sendResponse({result: "Complete", navObjects: null});
+    function completeResponse(msg, navObjectList) {
+        sendResponse({result: msg, navObjects: navObjectList});
     }
 });
 
