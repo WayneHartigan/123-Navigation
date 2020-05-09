@@ -1,81 +1,40 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
     if (request.command == 'newDom'){
-        //if command has been called twice, remove old dom.
-        if (request.objectToPress){
-            removeDom();
-        }
-
-        navObjectList = createBaseDiv();
-
+        navObjectList = createBaseDiv(request);
         //send response to background.js allerting success
         if (navObjectList.length != 0){
             sendResponse({result: "Nav Icons", navObjects: navObjectList});
         }
         else {
-            sendResponse({result: "Complete", navObjects: null});
+            response();
         }
-
     }
-    else if (request.command == 'pressButton' && request.objectToPress){
-        elementId = request.objectToPress;
-        document.getElementsByClassName(elementId.toString())[0].click();
-        removeDom();
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'cancelDom'){
-        removeDom();
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'scrollDown'){
-        removeDom();
-        window.scrollBy(0, 500);
-        sendResponse({result: "Complete", navObjects: null});
+    else{
+        checkOtherCommands(request);
+        response();
     }
 
-    else if (request.command == 'scrollUp'){
-        removeDom();
-        window.scrollBy(0, -500);
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'goBack'){
-        window.history.back();
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'goForward'){
-        window.history.forward();
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'goTop'){
-        removeDom();
-        window.scrollTo(0, 0);
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'goBottom'){
-        removeDom();
-        window.scrollTo(0,document.body.scrollHeight);
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'search'){
-        removeDom();
-        window.open('http://google.com/search?q='+ request.objectToPress, "_self");
-        sendResponse({result: "Complete", navObjects: null});
-    }
-    else if (request.command == 'refresh'){
-        location.reload();
-        sendResponse({result: "Complete", navObjects: null});
-    }
     document.onscroll = function(){
         removeDom();
-        sendResponse({result: "Complete", navObjects: null});
+        response();
+
     };
     document.onclick = function(){
         removeDom();
-        sendResponse({result: "Complete", navObjects: null});
+        response();
     };
+
+    function response() {
+        sendResponse({result: "Complete", navObjects: null});
+    }
 });
 
-function createBaseDiv() {
+function createBaseDiv(request) {
+    //if command has been called twice, remove old dom.
+    if (request.objectToPress){
+        removeDom();
+    }
     //create new div to house navigating icons
     var newDiv = document.createElement('div');
     //give it some style
@@ -127,6 +86,48 @@ function createNavigationIcons(newDiv) {
         }
     }
     return navObjectList;
+}
+
+function checkOtherCommands(request){
+    if (request.command == 'pressButton' && request.objectToPress){
+        elementId = request.objectToPress;
+        document.getElementsByClassName(elementId.toString())[0].click();
+        removeDom();
+
+    }
+    else if (request.command == 'cancelDom'){
+        removeDom();
+    }
+    else if (request.command == 'scrollDown'){
+        removeDom();
+        window.scrollBy(0, 500);
+    }
+
+    else if (request.command == 'scrollUp'){
+        removeDom();
+        window.scrollBy(0, -500);
+    }
+    else if (request.command == 'goBack'){
+        window.history.back();
+    }
+    else if (request.command == 'goForward'){
+        window.history.forward();
+    }
+    else if (request.command == 'goTop'){
+        removeDom();
+        window.scrollTo(0, 0);
+    }
+    else if (request.command == 'goBottom'){
+        removeDom();
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+    else if (request.command == 'search'){
+        removeDom();
+        window.open('http://google.com/search?q='+ request.objectToPress, "_self");
+    }
+    else if (request.command == 'refresh'){
+        location.reload();
+    }
 }
 
 function isElementInViewport(att) {
