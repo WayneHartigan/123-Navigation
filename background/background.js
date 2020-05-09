@@ -27,19 +27,38 @@ function speechResults(event, navValues){
     var last = event.results.length - 1;
     var command = event.results[last][0].transcript.toLowerCase();
     if (navValues){
-        checkSpeechWithNavValues(command, navValues);
+        if (!checkForMatchingNavValue(command, navValues)){
+            checkCommands(command);
+        }
     }
     else{
-        checkSpeech(command);
+        checkCommands(command);
     }
 }
 
-function checkSpeech(command) {
+function checkForMatchingNavValue(command, navValues) {
+    var commandCheck = " " + command + " ";
+    // iterate over each element in the array
+    for (var i = 0; i < navValues.length; i++){
+        var navCheck = " " + (navValues[i].navValue).toString() + " ";
+        if (commandCheck.includes(navCheck)){
+            sendMessagetoContext("pressButton", navValues[i].elementId)
+            navValues = null;
+            return true;
+        }
+    }
+    return false;
+}
+
+function checkCommands(command) {
     if (command.includes('navigation')){
         sendMessagetoContext("newDom", null);
     }
     else if (command.includes('scroll down')){
         sendMessagetoContext("scrollDown", null);
+    }
+    else if (command.includes('cancel')){
+        sendMessagetoContext("cancelDom", null);
     }
     else if (command.includes('scroll up')){
         sendMessagetoContext("scrollUp", null);
@@ -62,53 +81,6 @@ function checkSpeech(command) {
     else if (command.includes('search for ')){
         var searchTerm = command.split('search for ').pop();
         sendMessagetoContext("search", searchTerm)
-    }
-}
-
-function checkSpeechWithNavValues(command, navValues) {
-    if (command.includes('cancel')){
-        sendMessagetoContext("cancelDom", null);
-    }
-    else if (command.includes('navigation')){
-        sendMessagetoContext("newDom", "remove");
-    }
-    else if (command.includes('scroll down')){
-        sendMessagetoContext("scrollDown", null);
-    }
-    else if (command.includes('scroll up')){
-        sendMessagetoContext("scrollUp", null);
-    }
-    else if (command.includes('scroll top')){
-        sendMessagetoContext("goTop", null);
-    }
-    else if (command.includes('scroll bottom')){
-        sendMessagetoContext("goBottom", null);
-    }
-    else if (command.includes('go back')){
-        sendMessagetoContext("goBack", null);
-    }
-    else if (command.includes('go forward')){
-        sendMessagetoContext("goForward", null);
-    }
-    else if (command.includes('search for ')){
-        var searchTerm = command.split('search for ').pop();
-        sendMessagetoContext("search", searchTerm)
-    }
-    else {
-        checkForMatchingNavValue(command, navValues);
-    }
-}
-
-function checkForMatchingNavValue(command, navValues) {
-    var commandCheck = " " + command + " ";
-    // iterate over each element in the array
-    for (var i = 0; i < navValues.length; i++){
-        var navCheck = " " + (navValues[i].navValue).toString() + " ";
-        if (commandCheck.includes(navCheck)){
-            sendMessagetoContext("pressButton", navValues[i].elementId)
-            navValues = null;
-            break;
-        }
     }
 }
 
