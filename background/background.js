@@ -25,12 +25,12 @@ recognition.onend = function(event) {
 
 function speechResults(event, navValues){
     var last = event.results.length - 1;
-    var command = event.results[last][0].transcript;
+    var command = event.results[last][0].transcript.toLowerCase();
     if (navValues){
-        checkSpeechWithNavValues(command.toLowerCase(), navValues);
+        checkSpeechWithNavValues(command, navValues);
     }
     else{
-        checkSpeech(command.toLowerCase());
+        checkSpeech(command);
     }
 }
 
