@@ -27,8 +27,8 @@ function speechResults(event, navValues){
     var last = event.results.length - 1;
     var command = event.results[last][0].transcript.toLowerCase();
     if (navValues){
-        if (!checkForMatchingNavValue(command, navValues)){
-            checkCommands(command);
+        if (!checkCommands(command)){
+            checkForMatchingNavValue(command, navValues);
         }
     }
     else{
@@ -44,10 +44,8 @@ function checkForMatchingNavValue(command, navValues) {
         if (commandCheck.includes(navCheck)){
             sendMessagetoContext("pressButton", navValues[i].elementId)
             navValues = null;
-            return true;
         }
     }
-    return false;
 }
 
 function checkCommands(command) {
@@ -81,6 +79,9 @@ function checkCommands(command) {
     else if (command.includes('search for ')){
         var searchTerm = command.split('search for ').pop();
         sendMessagetoContext("search", searchTerm)
+    }
+    else {
+        return false;
     }
 }
 
