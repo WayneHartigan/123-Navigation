@@ -46,7 +46,7 @@ function createBaseDiv(request) {
 }
 
 function createNavigationIcons(newDiv) {
-    //retireve and loop through each selected attribute
+    //retrieve and loop through each selected attribute
     var navObjectList = [];
     var navValueList = [];
     var id = 1;
