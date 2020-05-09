@@ -27,70 +27,70 @@ function speechResults(event, navValues){
     var last = event.results.length - 1;
     var command = event.results[last][0].transcript;
     if (navValues){
-        checkSpeechWithNavValues(command, navValues);
+        checkSpeechWithNavValues(command.toLowerCase(), navValues);
     }
     else{
-        checkSpeech(command);
+        checkSpeech(command.toLowerCase());
     }
 }
 
 function checkSpeech(command) {
-    if (command.toLowerCase().includes('navigation')){
+    if (command.includes('navigation')){
         sendMessagetoContext("newDom", null);
     }
-    else if (command.toLowerCase().includes('scroll down')){
+    else if (command.includes('scroll down')){
         sendMessagetoContext("scrollDown", null);
     }
-    else if (command.toLowerCase().includes('scroll up')){
+    else if (command.includes('scroll up')){
         sendMessagetoContext("scrollUp", null);
     }
-    else if (command.toLowerCase().includes('go back')){
+    else if (command.includes('go back')){
         sendMessagetoContext("goBack", null);
     }
-    else if (command.toLowerCase().includes('go forward')){
+    else if (command.includes('go forward')){
         sendMessagetoContext("goForward", null);
     }
-    else if (command.toLowerCase().includes('scroll top')){
+    else if (command.includes('scroll top')){
         sendMessagetoContext("goTop", null);
     }
-    else if (command.toLowerCase().includes('scroll bottom')){
+    else if (command.includes('scroll bottom')){
         sendMessagetoContext("goBottom", null);
     }
-    else if (command.toLowerCase().includes('refresh page')){
+    else if (command.includes('refresh page')){
         sendMessagetoContext("refresh", null);
     }
-    else if (command.toLowerCase().includes('search for ')){
+    else if (command.includes('search for ')){
         var searchTerm = command.split('search for ').pop();
         sendMessagetoContext("search", searchTerm)
     }
 }
 
 function checkSpeechWithNavValues(command, navValues) {
-    if (command.toLowerCase().includes('cancel')){
+    if (command.includes('cancel')){
         sendMessagetoContext("cancelDom", null);
     }
-    else if (command.toLowerCase().includes('navigation')){
+    else if (command.includes('navigation')){
         sendMessagetoContext("newDom", "remove");
     }
-    else if (command.toLowerCase().includes('scroll down')){
+    else if (command.includes('scroll down')){
         sendMessagetoContext("scrollDown", null);
     }
-    else if (command.toLowerCase().includes('scroll up')){
+    else if (command.includes('scroll up')){
         sendMessagetoContext("scrollUp", null);
     }
-    else if (command.toLowerCase().includes('scroll top')){
+    else if (command.includes('scroll top')){
         sendMessagetoContext("goTop", null);
     }
-    else if (command.toLowerCase().includes('scroll bottom')){
+    else if (command.includes('scroll bottom')){
         sendMessagetoContext("goBottom", null);
     }
-    else if (command.toLowerCase().includes('go back')){
+    else if (command.includes('go back')){
         sendMessagetoContext("goBack", null);
     }
-    else if (command.toLowerCase().includes('go forward')){
+    else if (command.includes('go forward')){
         sendMessagetoContext("goForward", null);
     }
-    else if (command.toLowerCase().includes('search for ')){
+    else if (command.includes('search for ')){
         var searchTerm = command.split('search for ').pop();
         sendMessagetoContext("search", searchTerm)
     }
