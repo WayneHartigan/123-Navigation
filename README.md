@@ -30,5 +30,6 @@ A voice activated navigation Chrome Extension, developed for Final Year Project
   - <img src="images/readme/permission.PNG">
   - Click allow
   - Read the commands below (also found in drop down menu in top right anywhere in Chrome)
+  - <img src="images/readme/dropdown.png">
   - Navigate away from this page
   - Enjoy!
