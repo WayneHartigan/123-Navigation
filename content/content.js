@@ -214,9 +214,13 @@ function checkIfClickable(pageAtt){
     also removes all elements in it (nav icons)
 */
 function removeDom(){
-    // checks if the div is there before trying to delete, this prevents errors
+    // get div by id
     var dom = document.getElementById("navigation-icons-div")
-    if (dom != null){
+    try {
+        // try to remove it
         dom.remove();
+    }
+    catch {
+        // doesnt exist so pass
     }
 }

@@ -128,11 +128,7 @@ function checkCommands(command) {
 function sendMessagetoContext (msg, objectToPress){
     chrome.tabs.query({active: true, currentWindow:true}, function(tabs){
         chrome.tabs.sendMessage(tabs[0].id, {command: msg, objectToPress: objectToPress}, function(response){
-            // If the response from context is undefined, do nothing, this prevents errors
-            if (response === undefined){
-                //pass
-            }
-            else {
+            try {
                 // If the response is "Nav Icons" it means the navigation icons have been created
                 // Set the navValues to the list of nav values returned from the context
                 if (response.result.includes("Nav Icons")){
@@ -144,6 +140,9 @@ function sendMessagetoContext (msg, objectToPress){
                 else if (response.result.includes("Complete")){
                     navValues = null;
                 }
+            }
+            catch {
+                // Response returned undefined, prevents errors
             }
         })
     })
