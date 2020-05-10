@@ -15,7 +15,7 @@ recognition.onresult = function(event) {
     speechResults(event, navValues);
 };
 recognition.onerror = function(event) {
-    if (event.error != "no-speech"){
+    if (event.error != "no-speech" && event.error != "not-allowed"){
         console.log("Theres been an error: " + event.error);
     }
 };

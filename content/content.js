@@ -1,5 +1,4 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-
     if (request.command == 'newDom'){
         navObjectList = createBaseDiv(request);
         //send response to background.js allerting success
