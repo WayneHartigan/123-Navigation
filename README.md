@@ -1,6 +1,12 @@
 # 123-Navigation
-A voice activated navigation Chrome Extension, developed for Final Year Project
+A Google Chrome extension that allows users to navigate throughout Chrome using only their voice and on screen indicators.
+Developed for a Final Year Project in BSc (Honours) in Computing at The National College of Ireland (NCI).
+Installation instruction can be found below.
 
+<sup>Pending review for Google Chrome Web Store Deployment</sup>
+
+# LinkedIn Profile
+www.linkedin.com/in/wayne-hartigan/
 
 # Installation Instructions
 
