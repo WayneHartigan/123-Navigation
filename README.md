@@ -16,7 +16,7 @@ A voice activated navigation Chrome Extension, developed for Final Year Project
 <img src="images/readme/unzip.PNG">
 
 * Loading Extension
-  - Go to <a href="chrome://extensions/">Extensions Settings<a>
+  - Go to [Extensions Settings](chrome://extensions/)
 <img src="images/readme/dev.PNG">
 <img src="images/readme/folder.PNG">
 <img src="images/readme/load.PNG">
