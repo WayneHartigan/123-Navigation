@@ -32,4 +32,5 @@ A voice activated navigation Chrome Extension, developed for Final Year Project
   - Read the commands below (also found in drop down menu in top right anywhere in Chrome)
   - <img src="images/readme/dropdown.png">
   - Navigate away from this page
+  - Say "Navigation" to begin!
   - Enjoy!
