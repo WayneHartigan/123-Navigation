@@ -11,9 +11,12 @@ A voice activated navigation Chrome Extension, developed for Final Year Project
 
 
 * Unzip File
-  -
-  -
+  - Navigate to ZIP folder location
+  - Unzip Folder
 <img src="images/readme/unzip.PNG">
+
+* Loading Extension
+  - Go to <a href="chrome://extensions/">Extensions Settings<a>
 <img src="images/readme/dev.PNG">
 <img src="images/readme/folder.PNG">
 <img src="images/readme/load.PNG">
