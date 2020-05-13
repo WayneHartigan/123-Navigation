@@ -35,6 +35,8 @@ www.linkedin.com/in/wayne-hartigan/
   - A prompt saying "123 Navigation want to use your microphone" will appear
   - <img src="images/readme/permission.PNG">
   - Click allow
+
+* Use 123 Navigation
   - Read the commands below (also found in drop down menu in top right anywhere in Chrome)
   - <img src="images/readme/dropdown.png">
   - Navigate away from this page
