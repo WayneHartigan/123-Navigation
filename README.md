@@ -1,5 +1,5 @@
 # 123-Navigation
-A Google Chrome extension that allows users to navigate throughout Chrome using only their voice and on screen indicators.
+Google Chrome extension that allows users to navigate throughout Chrome using only their voice and on screen indicators.
 Developed for a Final Year Project in BSc (Honours) in Computing at The National College of Ireland (NCI).
 Installation instruction can be found below.
 
